@@ -1,5 +1,5 @@
 # pipfile-freeze
-CLI tool to covert Pipfile/Pipfile.lock to requirments.txt
+CLI tool to convert Pipfile/Pipfile.lock to requirments.txt
 
 [![](https://img.shields.io/pypi/v/pipfile-freeze.svg)](https://pypi.org/project/pipfile-freeze)
 [![](https://img.shields.io/pypi/pyversions/pipfile-freeze.svg)](https://pypi.org/project/pipfile-freeze)

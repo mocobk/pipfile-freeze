@@ -7,8 +7,8 @@ with io.open("README.md", encoding="utf-8") as f:
 
 setup(
     name="pipfile-freeze",
-    version="0.1.2",
-    description="A CLI tool to covert Pipfile/Pipfile.lock to requirments.txt",
+    version="0.1.3",
+    description="A CLI tool to convert Pipfile/Pipfile.lock to requirments.txt",
     url="https://github.com/mocobk/pipfile-freeze",
     long_description=README,
     long_description_content_type="text/markdown",
