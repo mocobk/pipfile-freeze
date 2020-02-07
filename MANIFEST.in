@@ -1,2 +1,0 @@
-include README.md LICENSE test_pipfile_requirements.py
-include tests/*

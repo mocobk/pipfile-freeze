@@ -6,17 +6,17 @@ with io.open("README.md", encoding="utf-8") as f:
 
 
 setup(
-    name="pipfile-requirements",
-    version="0.1.1",
+    name="pipfile-freeze",
+    version="0.1.2",
     description="A CLI tool to covert Pipfile/Pipfile.lock to requirments.txt",
-    url="https://github.com/frostming/pipfile-requirements",
+    url="https://github.com/mocobk/pipfile-freeze",
     long_description=README,
     long_description_content_type="text/markdown",
-    author="Frost Ming",
-    py_modules=["pipfile_requirements"],
-    author_email="mianghong@gmail.com",
+    author="mocobk",
+    py_modules=["pipfile_freeze"],
+    author_email="mailmzb@163.com",
     license="MIT",
-    install_requires=["requirementslib"],
+    install_requires=["requirementslib", "tomlkit <= 0.5.3"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: MIT License",
@@ -29,5 +29,5 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
     ],
-    entry_points={"console_scripts": ["pipfile2req = pipfile_requirements:main"]},
+    entry_points={"console_scripts": ["pipfile = pipfile_freeze:main"]},
 )

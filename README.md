@@ -1,10 +1,8 @@
-# pipfile-requirements
+# pipfile-freeze
 CLI tool to covert Pipfile/Pipfile.lock to requirments.txt
 
-[![Build Status](https://travis-ci.org/frostming/pipfile-requirements.svg?branch=master)](https://travis-ci.org/frostming/pipfile-requirements)
-[![Build status](https://ci.appveyor.com/api/projects/status/gketl2i4mhjt53l5?svg=true)](https://ci.appveyor.com/project/frostming/pipfile-requirements)
-[![](https://img.shields.io/pypi/v/pipfile-requirements.svg)](https://pypi.org/project/pipfile-requirements)
-[![](https://img.shields.io/pypi/pyversions/pipfile-requirements.svg)](https://pypi.org/project/pipfile-requirements)
+[![](https://img.shields.io/pypi/v/pipfile-freeze.svg)](https://pypi.org/project/pipfile-freeze)
+[![](https://img.shields.io/pypi/pyversions/pipfile-freeze.svg)](https://pypi.org/project/pipfile-freeze)
 
 ## Required Python version
 
@@ -12,7 +10,7 @@ CLI tool to covert Pipfile/Pipfile.lock to requirments.txt
 
 ## What does it do?
 
-The tool is built on top of [requirementslib](https://github.com/sarugaku/requirementslib) to provide a simple CLI to
+The tool is built on top of [requirementslib][1] to provide a simple CLI to
 convert the Pipenv-managed files to requirements.txt.
 
 Pipenv is a great tool for managing virtualenvs and dependencies, but it may be not that useful in deployment.
@@ -24,19 +22,73 @@ which packages and versions should be installed.
 ## Installation
 
 ```bash
-$ pip install pipfile-requirements
+$ pip install pipfile-freeze
 ```
 
-An executable named `pipfile2req` will be ready for use in the bin path.
+An executable named `pipfile` will be ready for use in the bin path.
+
+
+## Examples:
+```
+Output requirements directly to the console:
+$ pipfile freeze
+
+Output requirements to the file, default './requirements.txt' with -o:
+$ pipfile freeze -o
+$ pipfile freeze -o /path/requirements.txt
+
+Specify a project root path
+$ pipfile freeze -p myproject
+
+Complex example
+$ pipfile freeze -p myproject --hashes -d -o /path/requirements.txt
+```
+
+If your Pipfile like this:
+```toml
+[[source]]
+name = "tuna"
+url = "http://pypi.tuna.tsinghua.edu.cn/simple"
+verify_ssl = true
+
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+requests = "*"
+ilogger = "==0.1"
+apscheduler = "*"
+pywinusb = {version = "1.1", sys_platform = "== 'win32'"}
+
+[requires]
+python_version = "3.7"
+```
+
+Here is the output (requirements.txt):
+
+```
+--index-url http://pypi.tuna.tsinghua.edu.cn/simple
+--trusted-host pypi.tuna.tsinghua.edu.cn
+--extra-index-url https://pypi.org/simple
+
+apscheduler
+ilogger==0.1
+pywinusb; sys_platform == 'win32'
+requests
+```
 
 ## Usage:
 
 ```
-$ pipfile2req --help
-usage: pipfile2req [-h] [-p PROJECT] [--hashes] [-d] [file]
+$ pipfile freeze --help
+usage: pipfile freeze [-h] [-p PROJECT] [--hashes] [-d] [-o [file]] [file]
 
 positional arguments:
-  file                  The file path to covert, support both Pipfile and
+  file                  The file path to convert, support both Pipfile and
                         Pipfile.lock. If it isn't given, will try Pipfile.lock
                         first then Pipfile.
 
@@ -45,13 +97,17 @@ optional arguments:
   -p PROJECT, --project PROJECT
                         Specify another project root
   --hashes              whether to include the hashes
-  -d, --dev             whether to choose the dev-dependencies section
+  -d, --dev             whether to choose both develop and default packages
+  -o [file], --outfile [file]
+                        Output requirements to the file
+                        
 ```
 
 ## License
 
 [MIT](/LICENSE)
 
-## Others
+This tool is improved based on the [pipfile-requirements][2] tool, thanks to [@frostming][2] for his contribution.
 
-It is my first time to use Poetry to manage my project, related to Pipenv, lol.
+[1]: https://github.com/sarugaku/requirementslib
+[2]: https://github.com/frostming/pipfile-requirements
