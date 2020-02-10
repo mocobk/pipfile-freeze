@@ -1,7 +1,5 @@
 # pipfile-freeze
-English | [简体中文](./README-zh.md)
-
-CLI tool to convert Pipfile/Pipfile.lock to requirments.txt
+这是一个将 Pipfile/Pipfile.lock 转换为 requirments.txt 的命令行工具
 
 [![](https://img.shields.io/pypi/v/pipfile-freeze.svg)](https://pypi.org/project/pipfile-freeze)
 [![](https://img.shields.io/pypi/pyversions/pipfile-freeze.svg)](https://pypi.org/project/pipfile-freeze)
@@ -10,43 +8,35 @@ CLI tool to convert Pipfile/Pipfile.lock to requirments.txt
 
 `>=2.7, >=3.4`
 
-## What does it do?
+## 能做什么?
 
-The tool is built on top of [requirementslib][1] to provide a simple CLI to
-convert the Pipenv-managed files to requirements.txt.
+该工具是基于[requirementslib] [1]开发，提供了一个简单的命令行工具，可以将 Pipenv 管理的依赖文件转换为通用的 requirements.txt 文件。 Pipenv 可以很好地管理虚拟环境和依赖包，但在项目部署过程中不具优势。 原因在于 pip 比 pipenv 安装依赖要快得多，因为后者还需要发送额外的请求给 PyPI 进行哈希检查。另外在正式部署中安装 Pipenv 可能也会显得冗余，尤其是采用 docker 方式去部署。这种情况下我们一般只需提供一份 requirements.txt 文件来告诉持续集成工具或生产服务器应安装哪些依赖包和版本。
 
-Pipenv is a great tool for managing virtualenv and dependencies, but it may be not that useful in deployment.
-Pip installation is much faster than Pipenv manipulation, since the latter needs extra requests to PyPI for hash checking.
-Installing a Pipenv in deployment may be overkilled, especially using docker to deploy. We just need a requirements.txt to tell CI or production server
-which packages and versions should be installed.
-
-
-## Installation
+## 安装
 
 ```bash
 $ pip install pipfile-freeze
 ```
+安装完成后在你的终端就可以使用 `pipfile` 这个命令了
 
-An executable named `pipfile` will be ready for use in the bin path.
 
-
-## Examples:
+## 举例:
 ```
-Output requirements directly to the console:
+直接输出依赖到终端:
 $ pipfile freeze
 
-Output requirements to the file, default './requirements.txt' with -o:
+输出依赖到文件, 仅使用 -o 参数的话，默认保存为 './requirements.txt':
 $ pipfile freeze -o
 $ pipfile freeze -o /path/requirements.txt
 
-Specify a project root path
+指定项目根目录来查找 Pipfile, 默认在当前目录下查找
 $ pipfile freeze -p myproject
 
-Complex example
+更复杂的例子
 $ pipfile freeze -p myproject --hashes -d -o /path/requirements.txt
 ```
 
-If your Pipfile like this:
+假如你的 Pipfile 文件是这样子的:
 ```toml
 [[source]]
 name = "tuna"
@@ -70,7 +60,7 @@ pywinusb = {version = "1.1", sys_platform = "== 'win32'"}
 python_version = "3.7"
 ```
 
-Here is the output (requirements.txt):
+转换后输出 requirements.txt :
 
 ```
 --index-url http://pypi.tuna.tsinghua.edu.cn/simple
@@ -83,7 +73,7 @@ pywinusb; sys_platform == 'win32'
 requests
 ```
 
-## Usage:
+## 用法:
 
 ```
 $ pipfile freeze --help
@@ -109,7 +99,8 @@ optional arguments:
 
 [MIT](/LICENSE)
 
-This tool is improved based on the [pipfile-requirements][2] tool, thanks to [@frostming][2] for his contribution.
+这个工具是在 [pipfile-requirements][2] 的基础上改进的，感谢 [@frostming][2] 的开源贡献。
+
 
 [1]: https://github.com/sarugaku/requirementslib
 [2]: https://github.com/frostming/pipfile-requirements
