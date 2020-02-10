@@ -4,13 +4,13 @@
 [![](https://img.shields.io/pypi/v/pipfile-freeze.svg)](https://pypi.org/project/pipfile-freeze)
 [![](https://img.shields.io/pypi/pyversions/pipfile-freeze.svg)](https://pypi.org/project/pipfile-freeze)
 
-## Required Python version
+## Python 版本要求
 
-`>=2.7, >=3.4`
+`>=2.7, >=3.4`，其他版本未测试过
 
 ## 能做什么?
 
-该工具是基于[requirementslib] [1]开发，提供了一个简单的命令行工具，可以将 Pipenv 管理的依赖文件转换为通用的 requirements.txt 文件。 
+该工具是基于 [requirementslib][1] 开发，提供了一个简单的命令行工具，可以将 Pipenv 管理的依赖文件转换为通用的 requirements.txt 文件。 
 
 Pipenv 可以很好地管理虚拟环境和依赖包，但在项目部署过程中不具优势。 原因在于 pip 比 pipenv 安装依赖要快得多，因为后者还需要发送额外的请求给 PyPI 进行哈希检查。另外在正式部署中安装 Pipenv 可能也会显得冗余，尤其是采用 docker 方式去部署。这种情况下我们一般只需提供一份 requirements.txt 文件来告诉持续集成工具或生产服务器应安装哪些依赖包和版本。
 
